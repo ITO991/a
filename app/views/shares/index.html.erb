@@ -1,0 +1,35 @@
+<h1>MarketShare</h1>
+<h3>一覧ページ</h3>
+
+<h3>投稿を検索</h3>
+ <%= form_tag({controller:"shares",action:"index"}, method: :get) do %>
+   <%= text_field_tag :search %>
+   <%= submit_tag '検索する'  %>
+<% end %>
+
+<%= link_to "新規投稿へ", :controller => "shares", :action => "new" %>
+
+<%= page_entries_info @shares %>
+<%= paginate @shares %>
+
+<div class="shares-container">
+  <% @shares.each do |t| %>
+    <div class="share">
+
+      <%= t.user.email %> 
+
+      <%= image_tag t.image_url, size: "250x200" if t.image? %>
+
+      <%= t.shop_name %>
+      <%= t.adress %>
+      <%= t.evaluation %>
+      <%= t.body %>
+      <%= link_to "詳細へ", share_path(t.id) %>
+      <% if user_signed_in? && current_user.id == t.user_id %>
+        <%= link_to "編集する", edit_share_path(t.id) %>
+        <%= button_to "削除する", share_path(t.id), method: :delete %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+

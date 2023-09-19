@@ -1,0 +1,31 @@
+<h1>MarketShare</h1>
+<h3>新規投稿ページ</h3>
+<%= form_for @share do |f| %>
+
+  <div class="field">
+    <%= f.label :"店舗の種類"  %>
+    <%= f.select :shop_name, 
+    [["スーパーマーケット", "スーパーマーケット"], 
+    ["コンビニ", "コンビニ"], 
+    ["その他", "その他"]], include_blank: "選択して下さい" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"所在地" %>
+    <%= f.text_field :adress, :size => 60 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :"コメント"  %>
+    <%= f.text_area :body, :size => "80x4" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :image %>
+    <%= f.file_field :image %>
+  </div>
+
+  <%= f.submit "投稿する" %>
+<% end %>
+
+<%= link_to "一覧に戻る", shares_path %>
